@@ -30,7 +30,7 @@
         <div class="item__top">
           <a href="/users/{{ post.poster_name }}" class="item__head">
             <div class="item__ava-wrap">
-              <img src="/static/img/ava1.png" alt="" class="item__ava" width="47">
+              <img src="{{ post.poster_avatar }}" alt="" class="item__ava" width="47">
             </div>
             <span class="item__username">{{ post.poster_name }}</span>
           </a>
@@ -41,7 +41,7 @@
           </a>
         </div>
         <a href="" class="item__post-link">
-          <img src="/static/img/post1.jpg" alt="" width="348" class="item__post-img">
+          <img src="{{ post.pic }}" alt="" width="348" class="item__post-img">
         </a>
         <div class="item__descr">
           <p class="item__text">

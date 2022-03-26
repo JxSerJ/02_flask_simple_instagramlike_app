@@ -4,9 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SKYPROGRAM user feed</title>
+  <title>SKYPROGRAM {{ user_name }} feed</title>
   <link rel="icon" href="/static/img/favicon_1.ico" type="image/x-icon">
   <link href="/static/css/styles.min.css" rel="stylesheet">
+  <script src="/static/scripts/scripts.js"></script>
 </head>
 
 <body>
@@ -39,7 +40,17 @@
         <a href="/posts/{{ post.pk }}" class="item__post-link">
           <img src="{{ post.pic }}" alt="" width="348" class="item__post-img">
         </a>
-        <p class="item__descr"><a href="#" class="item__tag">#food</a> {{ post.content|truncate(25, True) }}</p>
+
+        <div id="comm_content-{{post.pk}}-less" style="display:inline">
+          <span class="item__descr"><a href="#" class="item__tag">#food</a> {{ post.content|truncate(25, True) }}</span>
+          <a id="comm_content-{{post.pk}}-show" href="#" class="item__btn-more" onclick="showHide('comm_content-{{post.pk}}');return false;">ещё</a>
+        </div>
+
+        <div id="comm_content-{{post.pk}}" style="display:none">
+          <span class="item__descr"><a href="#" class="item__tag">#food</a> {{ post.content|truncate(200, True) }}</span>
+          <a id="comm_content-{{post.pk}}-hide" href="#" class="item__btn-more" onclick="showHide('comm_content-{{post.pk}}');return false;">скрыть</a>
+        </div>
+
         <div class="item__post-info">
           <div class="item__comments-counter">
             <a href="/posts/{{ post.pk }}">Комментариев: {{ comments.get_comments_by_post_id(post.pk)|length }}</a><br>
