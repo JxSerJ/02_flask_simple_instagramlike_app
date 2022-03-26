@@ -1,6 +1,8 @@
 from config import BOOKMARKS_DB, COMMENTS_DB, POST_DB
 from flask import Flask, redirect, request, render_template
-from utils import load_json_file, upload_into_json_file
+
+from search.views import search
+
 from classes.post_handler import PostHandler
 from classes.comment_handler import CommentHandler
 
@@ -8,6 +10,8 @@ posts_obj = PostHandler(POST_DB)
 comments_obj = CommentHandler(COMMENTS_DB)
 
 application = Flask(__name__)
+
+application.register_blueprint(search)
 
 
 @application.route("/", methods=['GET'])
@@ -22,13 +26,6 @@ def post_page(post_id: int):
     post = posts_obj.get_post_by_pk(post_id)
     comments = comments_obj.get_comments_by_post_id(post_id)
     return render_template("post.html", post=post, comments=comments)
-
-
-@application.route("/search/?s=<query>", methods=['GET', 'POST'])
-def search_page(query):
-    if request.method == "POST":
-        pass
-    pass
 
 
 @application.route("/users/<user_name>", methods=['GET'])
@@ -52,11 +49,8 @@ def bookmarks_page():
     return render_template("bookmarks.html")
 
 
-@application.route("/bookmarks/add/<int:post_id>", methods=['POST'])
+@application.route("/bookmarks/add/<int:post_id>", methods=['GET'])
 def bookmarks_add(post_id: int):
-    if request.method == "POST":
-        pass
-    print(1)
     return redirect("/", code=302)
 
 

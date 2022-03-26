@@ -45,12 +45,12 @@ class PostHandler:
     #
     #     return comments_obj.get_comments_by_post_id(post_id)
 
-    def search_for_posts(self, query):
+    def search_for_posts(self, query: str) -> list:
 
         result_posts = []
 
         for post in self.data:
-            if query in post["content"]:
+            if query.lower() in post["content"].lower():
                 result_posts.append(post)
         return result_posts
 
