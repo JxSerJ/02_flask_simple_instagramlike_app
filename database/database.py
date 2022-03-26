@@ -1,7 +1,9 @@
-from config import POST_DB, COMMENTS_DB
+from config import POST_DB, COMMENTS_DB, BOOKMARKS_DB
 
-from classes.post_handler import PostHandler
-from classes.comment_handler import CommentHandler
+from classes.posts_handler import PostsHandler
+from classes.comments_handler import CommentsHandler
+from classes.bookmarks_handler import BookmarksHandler
 
-posts_obj = PostHandler(POST_DB)
-comments_obj = CommentHandler(COMMENTS_DB)
+posts_obj = PostsHandler(POST_DB)
+comments_obj = CommentsHandler(COMMENTS_DB)
+bookmarks_obj = BookmarksHandler(BOOKMARKS_DB)

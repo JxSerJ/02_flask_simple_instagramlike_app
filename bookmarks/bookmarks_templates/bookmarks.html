@@ -6,7 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SKYPROGRAM bookmarks</title>
   <link rel="icon" href="/static/img/favicon_1.ico" type="image/x-icon">
-  <link href="/static/css/styles.min.css" rel="stylesheet">
+  <link href="{{url_css}}" rel="stylesheet">
+  <script src="{{url_scripts}}"></script>
+
 </head>
 
 <body>
@@ -26,87 +28,48 @@
   </header>
   <main class="container">
     <section class="items">
+      {% for bookmark in bookmarks %}
       <div class="items__item item">
         <div class="item__top">
-          <a href="/templates/user-feed.html" class="item__head">
+          <a href="/users/{{ bookmark.poster_name }}" class="item__head">
             <div class="item__ava-wrap">
-              <img src="/static/img/ava1.png" alt="" class="item__ava" width="47">
+              <img src="{{ bookmark.poster_avatar }}" alt="" class="item__ava" width="47">
             </div>
-            <span class="item__username">skypro.08</span>
+            <span class="item__username">{{ bookmark.poster_name }}</span>
           </a>
-          <a href="#" class="item__delete">Удалить</a>
+          <a href="/bookmarks/remove/{{ bookmark.pk }}" class="item__delete">Удалить</a>
         </div>
-        <a href="/templates/post.html" class="item__post-link">
-          <img src="/static/img/post5.jpg" alt="" width="348" class="item__post-img">
+        <a href="/posts/{{ bookmark.pk }}" class="item__post-link">
+          <img src="{{ bookmark.pic }}" alt="" width="348" class="item__post-img">
         </a>
-        <p class="item__descr">Текст описания длинный... <a href="/templates/post.html" class="item__btn-more">Еще</a></p>
+
+        <div id="comm_content-{{bookmark.pk}}-less" style="display:inline">
+          <span class="item__descr">{{ bookmark.content|truncate(50, True) }}</span>
+          <a id="comm_content-{{bookmark.pk}}-show" href="#" class="item__btn-more" onclick="showHide('comm_content-{{bookmark.pk}}');return false;">Ещё</a>
+        </div>
+        <div id="comm_content-{{bookmark.pk}}" style="display:none">
+          <span class="item__descr">{{ bookmark.content|truncate(250, True) }}</span>
+        <a id="comm_content-{{bookmark.pk}}-hide" href="#" class="item__btn-more" onclick="showHide('comm_content-{{bookmark.pk}}');return false;">Скрыть</a>
+        </div>
         <div class="item__post-info">
+          <div class="item__comments-counter">
+            <a href="/posts/{{ bookmark.pk }}">Комментариев: {{ comments.get_comments_by_post_id(bookmark.pk)|length }}</a><br>
+          </div>
           <div class="item__counter">
             <img src="/static/img/eye.png" alt="" class="item__counter-icon" width="26">
-            <span class="item__counter-text">212</span>
+            <span class="item__counter-text">{{ bookmark.views_count }}</span>
           </div>
         </div>
         <div class="item__post-bottom">
-          <a href="/templates/post.html" class="item__btn-more">Подробнее</a>
-          <button type="button" class="item__bookmark-btn">
-            <img src="/static/img/bookmark.png" alt="" class="item__bookmark-icon" width="24">
-          </button>
-        </div>
-      </div>
-      <div class="items__item item">
-        <div class="item__top">
-          <a href="/templates/user-feed.html" class="item__head">
-            <div class="item__ava-wrap">
-              <img src="/static/img/ava2.png" alt="" class="item__ava" width="47">
-            </div>
-            <span class="item__username">Username</span>
+          <a href="/posts/{{ bookmark.pk }}" class="item__btn-more">Подробнее</a>
+          <a href="/bookmarks/add/{{ bookmark.pk }}">
+            <button type="button" class="item__bookmark-btn">
+              <img src="/static/img/bookmark.png" alt="" class="item__bookmark-icon" width="24">
+            </button>
           </a>
-          <a href="#" class="item__delete">Удалить</a>
-        </div>
-        <a href="/templates/post.html" class="item__post-link">
-          <img src="/static/img/post6.jpg" alt="" width="348" class="item__post-img">
-        </a>
-        <p class="item__descr">Текст описания длинный... <a href="/templates/post.html" class="item__btn-more">Еще</a></p>
-        <div class="item__post-info">
-          <div class="item__counter">
-            <img src="/static/img/eye.png" alt="" class="item__counter-icon" width="26">
-            <span class="item__counter-text">212</span>
-          </div>
-        </div>
-        <div class="item__post-bottom">
-          <a href="/templates/post.html" class="item__btn-more">Подробнее</a>
-          <button type="button" class="item__bookmark-btn">
-            <img src="/static/img/bookmark.png" alt="" class="item__bookmark-icon" width="24">
-          </button>
         </div>
       </div>
-      <div class="items__item item">
-        <div class="item__top">
-          <a href="/templates/user-feed.html" class="item__head">
-            <div class="item__ava-wrap">
-              <img src="/static/img/ava2.png" alt="" class="item__ava" width="47">
-            </div>
-            <span class="item__username">Username</span>
-          </a>
-          <a href="#" class="item__delete">Удалить</a>
-        </div>
-        <a href="/templates/post.html" class="item__post-link">
-          <img src="/static/img/post7.jpg" alt="" width="348" class="item__post-img">
-        </a>
-        <p class="item__descr">Текст описания длинный... <a href="/templates/post.html" class="item__btn-more">Еще</a></p>
-        <div class="item__post-info">
-          <div class="item__counter">
-            <img src="/static/img/eye.png" alt="" class="item__counter-icon" width="26">
-            <span class="item__counter-text">1023</span>
-          </div>
-        </div>
-        <div class="item__post-bottom">
-          <a href="/templates/post.html" class="item__btn-more">Подробнее</a>
-          <button type="button" class="item__bookmark-btn active">
-            <img src="/static/img/bookmark.png" alt="" class="item__bookmark-icon" width="24">
-          </button>
-        </div>
-      </div>
+      {% endfor %}
     </section>
   </main>
   <svg xmlns="http://www.w3.org/2000/svg" style="display:none">

@@ -1,7 +1,7 @@
 import json
 
 
-class CommentHandler:
+class CommentsHandler:
 
     def __init__(self, path: str):
         self.path = path

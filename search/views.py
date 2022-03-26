@@ -3,10 +3,10 @@ from flask import Blueprint, render_template, request, url_for
 from database.database import posts_obj, comments_obj
 
 
-search = Blueprint("search_page", __name__, template_folder="search_templates", static_folder="../static")
+search_module = Blueprint("search_page", __name__, template_folder="search_templates", static_folder="../static")
 
 
-@search.route("/search", methods=["GET"])
+@search_module.route("/search", methods=["GET"])
 def search_page():
 
     url_css = url_for("static", filename="css/styles.min.css")

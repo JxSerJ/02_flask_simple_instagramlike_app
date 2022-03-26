@@ -1,20 +1,22 @@
 from flask import Flask, redirect, request, render_template
 
-from search.views import search
+from search.views import search_module
+from bookmarks.views import bookmarks_module
 
-from database.database import posts_obj, comments_obj
+from database.database import posts_obj, comments_obj, bookmarks_obj
 
 
 application = Flask(__name__)
 
-application.register_blueprint(search)
+application.register_blueprint(search_module)
+application.register_blueprint(bookmarks_module)
 
 
 @application.route("/", methods=['GET'])
 def main_page():
     posts = posts_obj.data
-    bookmarks = [3, 1]  # bookmarks_obj
-    return render_template("index.html", posts_list=posts, comments=comments_obj, bookmarks=bookmarks)
+    bookmarks_count = len(bookmarks_obj.get_posts_all())
+    return render_template("index.html", posts_list=posts, comments=comments_obj, bookmarks_count=bookmarks_count)
 
 
 @application.route("/posts/<int:post_id>", methods=['GET'])
@@ -40,19 +42,5 @@ def tag_page(tag_name):
     pass
 
 
-@application.route("/bookmarks/", methods=['GET'])
-def bookmarks_page():
-    return render_template("bookmarks.html")
-
-
-@application.route("/bookmarks/add/<int:post_id>", methods=['GET'])
-def bookmarks_add(post_id: int):
-    return redirect("/", code=302)
-
-
-@application.route("/bookmarks/remove/<post_id>", methods=['POST'])
-def bookmarks_remove(post_id):
-    return redirect("/bookmarks", code=302)
-
-
-application.run(debug=True)
+if __name__ == "__main__":
+    application.run(debug=True)

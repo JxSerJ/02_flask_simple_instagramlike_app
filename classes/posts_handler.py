@@ -1,12 +1,12 @@
 import json
 
 
-class PostHandler:
+class PostsHandler:
 
     def __init__(self, path: str):
         self.path = path
         self.data = self.get_posts_all()
-        print(f"PostHandler initialized with data from '{path}'\n"
+        print(f"PostsHandler initialized with data from '{path}'\n"
               f"Posts loaded: {len(self.data)}\n")
 
     def __repr__(self):
@@ -40,10 +40,6 @@ class PostHandler:
             if post["poster_name"] == user_name:
                 result_posts.append(post)
         return result_posts
-
-    # def get_comments_by_post_id(self, post_id) -> list:
-    #
-    #     return comments_obj.get_comments_by_post_id(post_id)
 
     def search_for_posts(self, query: str) -> list:
 
