@@ -1,13 +1,9 @@
-from config import BOOKMARKS_DB, COMMENTS_DB, POST_DB
 from flask import Flask, redirect, request, render_template
 
 from search.views import search
 
-from classes.post_handler import PostHandler
-from classes.comment_handler import CommentHandler
+from database.database import posts_obj, comments_obj
 
-posts_obj = PostHandler(POST_DB)
-comments_obj = CommentHandler(COMMENTS_DB)
 
 application = Flask(__name__)
 

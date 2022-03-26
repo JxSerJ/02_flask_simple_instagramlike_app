@@ -1,12 +1,7 @@
 from flask import Blueprint, render_template, request, url_for
 
-from config import POST_DB, COMMENTS_DB
+from database.database import posts_obj, comments_obj
 
-from classes.post_handler import PostHandler
-from classes.comment_handler import CommentHandler
-
-posts_obj = PostHandler(POST_DB)
-comments_obj = CommentHandler(COMMENTS_DB)
 
 search = Blueprint("search_page", __name__, template_folder="search_templates", static_folder="../static")
 
