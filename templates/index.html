@@ -8,7 +8,6 @@
   <link rel="icon" href="/static/img/favicon_1.ico" type="image/x-icon">
   <link href="/static/css/styles.min.css" rel="stylesheet">
   <script src="/static/scripts/scripts.js"></script>
-<!--  <script src="/static/jquery-3.6.0.min.js"></script>-->
 </head>
 
 <body>
@@ -41,10 +40,12 @@
           <img src="{{ post.pic }}" alt="" width="348" class="item__post-img">
         </a>
 
-        <div id="comm_content-{{post.pk}}-less" style="display:block"><span class="item__descr">{{ post.content|truncate(50, True) }}</span>
+        <div id="comm_content-{{post.pk}}-less" style="display:inline">
+          <span class="item__descr">{{ post.content|truncate(50, True) }}</span>
           <a id="comm_content-{{post.pk}}-show" href="#" class="item__btn-more" onclick="showHide('comm_content-{{post.pk}}');return false;">Ещё</a>
         </div>
-        <div id="comm_content-{{post.pk}}" style="display:none"><span class="item__descr">{{ post.content }}</span>
+        <div id="comm_content-{{post.pk}}" style="display:none">
+          <span class="item__descr">{{ post.content|truncate(250, True) }}</span>
         <a id="comm_content-{{post.pk}}-hide" href="#" class="item__btn-more" onclick="showHide('comm_content-{{post.pk}}');return false;">Скрыть</a>
         </div>
         <div class="item__post-info">
@@ -57,6 +58,7 @@
           </div>
         </div>
         <div class="item__post-bottom">
+          <a href="/posts/{{ post.pk }}" class="item__btn-more">Подробнее</a>
           <a href="/bookmarks/add/{{ post.pk }}">
             <button type="button" class="item__bookmark-btn">
               <img src="/static/img/bookmark.png" alt="" class="item__bookmark-icon" width="24">
