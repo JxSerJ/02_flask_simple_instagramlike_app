@@ -6,8 +6,11 @@ class PostsHandler:
     def __init__(self, path: str):
         self.path = path
         self.data = self.get_posts_all()
+        self.max_post_id = self.get_max_post_id()
+
         print(f"PostsHandler initialized with data from '{path}'\n"
-              f"Posts loaded: {len(self.data)}\n")
+              f"Posts loaded: {len(self.data)}\n"
+              f"Last post id: {self.max_post_id}\n")
 
     def __repr__(self):
         return f"Posts loaded: {len(self.data)}"
@@ -58,3 +61,18 @@ class PostsHandler:
             if post["pk"] == pk:
                 result_posts = post
         return result_posts
+
+    def get_max_post_id(self) -> int:
+        max_post_id = 0
+        for entry in self.data:
+            if entry["pk"] > max_post_id:
+                max_post_id = entry["pk"]
+            else:
+                pass
+        return max_post_id
+
+    def add_post(self, data: dict) -> dict:
+
+        data["pk"] = self.max_post_id + 1
+        self.data.append(data)
+        return data

@@ -2,6 +2,7 @@ from flask import Flask, redirect, request, render_template, send_from_directory
 
 from search.views import search_module
 from bookmarks.views import bookmarks_module
+from loader.views import post_loader
 
 from database.database import posts_obj, comments_obj, bookmarks_obj
 
@@ -14,6 +15,7 @@ logging.basicConfig(level=logging.INFO)
 
 application.register_blueprint(search_module)
 application.register_blueprint(bookmarks_module)
+application.register_blueprint(post_loader)
 
 
 @application.route("/", methods=['GET'])
@@ -36,7 +38,7 @@ def user_page(user_name):
     return render_template("user-feed.html", user_name=user_name, posts=posts, comments=comments_obj)
 
 
-@application.route("/uploads/<path:path>", methods=['GET'])
+@application.route("/data/img/<path:path>", methods=['GET'])
 def dynamic_dir(path):
     return send_from_directory("data/img", path)
 

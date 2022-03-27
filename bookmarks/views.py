@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, url_for, redirect
 import logging
 
-from colorama import Fore, Style
+from colorama import Fore
 
 from database.database import posts_obj, comments_obj, bookmarks_obj
 
