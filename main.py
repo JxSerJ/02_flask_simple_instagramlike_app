@@ -1,4 +1,4 @@
-from flask import Flask, redirect, request, render_template
+from flask import Flask, redirect, request, render_template, send_from_directory
 
 from search.views import search_module
 from bookmarks.views import bookmarks_module
@@ -31,6 +31,10 @@ def user_page(user_name):
     posts = posts_obj.get_posts_by_user(user_name)
     return render_template("user-feed.html", user_name=user_name, posts=posts, comments=comments_obj)
 
+
+@application.route("/uploads/<path:path>", methods=['GET'])
+def dynamic_dir(path):
+    return send_from_directory("data/img", path)
 
 # api1
 
