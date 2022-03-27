@@ -5,8 +5,12 @@ from bookmarks.views import bookmarks_module
 
 from database.database import posts_obj, comments_obj, bookmarks_obj
 
+import logging
+
 
 application = Flask(__name__)
+
+logging.basicConfig(level=logging.INFO)
 
 application.register_blueprint(search_module)
 application.register_blueprint(bookmarks_module)

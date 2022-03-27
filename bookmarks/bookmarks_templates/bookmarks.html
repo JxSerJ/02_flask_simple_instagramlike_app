@@ -28,6 +28,11 @@
   </header>
   <main class="container">
     <section class="items">
+      {% if not bookmarks %}
+      <div class="bookmarks">
+      <p class="bookmarks__results">Закладки отсутствуют</p>
+      </div>
+      {% else %}
       {% for bookmark in bookmarks %}
       <div class="items__item item">
         <div class="item__top">
@@ -37,7 +42,7 @@
             </div>
             <span class="item__username">{{ bookmark.poster_name }}</span>
           </a>
-          <a href="/bookmarks/remove/{{ bookmark.pk }}" class="item__delete">Удалить</a>
+          <a href="/bookmarks/remove/{{ bookmark.pk }}?rt=/bookmarks" class="item__delete">Удалить</a>
         </div>
         <a href="/posts/{{ bookmark.pk }}" class="item__post-link">
           <img src="{{ bookmark.pic }}" alt="" width="348" class="item__post-img">
@@ -62,7 +67,7 @@
         </div>
         <div class="item__post-bottom">
           <a href="/posts/{{ bookmark.pk }}" class="item__btn-more">Подробнее</a>
-          <a href="/bookmarks/add/{{ bookmark.pk }}">
+          <a href="/bookmarks/add/{{ bookmark.pk }}?rt=/bookmarks">
             <button type="button" class="item__bookmark-btn">
               <img src="/static/img/bookmark.png" alt="" class="item__bookmark-icon" width="24">
             </button>
@@ -70,6 +75,7 @@
         </div>
       </div>
       {% endfor %}
+      {% endif %}
     </section>
   </main>
   <svg xmlns="http://www.w3.org/2000/svg" style="display:none">

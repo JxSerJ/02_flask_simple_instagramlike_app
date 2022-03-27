@@ -18,6 +18,13 @@ class CommentsHandler:
             self.data = json.load(file)
         return self.data
 
+    def upload_into_json_file(self, data_to_add: dict) -> None:
+        """
+        JSON Data uploader
+        """
+        with open(self.path, 'w', encoding='utf-8') as file:
+            json.dump(self.data, file, ensure_ascii=False, indent=4)
+
     def get_comments_by_post_id(self, post_id: int) -> list:
 
         result_comments = []

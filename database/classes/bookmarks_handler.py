@@ -1,4 +1,7 @@
 import json
+from typing import Type
+
+from database.classes.posts_handler import PostsHandler
 
 
 class BookmarksHandler:
@@ -25,7 +28,7 @@ class BookmarksHandler:
         JSON Data uploader
         """
         with open(self.path, 'w', encoding='utf-8') as file:
-            json.dump(self.data, file, ensure_ascii=False)
+            json.dump(self.data, file, ensure_ascii=False, indent=4)
 
     def get_posts_all(self) -> list:
         with open(self.path, 'r', encoding='utf-8') as file:
@@ -40,3 +43,23 @@ class BookmarksHandler:
             if post["pk"] == pk:
                 result_posts = post
         return result_posts
+
+    def get_index_by_pk(self, pk: int) -> int:
+        """Return index of bookmark by id"""
+
+        for i, dictionary in enumerate(self.data):
+            if dictionary["pk"] == pk:
+                return i
+        return -1
+
+    def is_post_in_db(self, pk: int) -> bool:
+
+        for post in self.data:
+            if post["pk"] == pk:
+                return True
+        return False
+
+    def add_post_into_db(self, post_db: Type[PostsHandler], pk: int) -> None:
+
+        post = post_db.get_post_by_pk(pk)
+        self.data.insert(0, post)

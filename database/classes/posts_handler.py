@@ -25,7 +25,7 @@ class PostsHandler:
         JSON Data uploader
         """
         with open(self.path, 'w', encoding='utf-8') as file:
-            json.dump(self.data, file, ensure_ascii=False)
+            json.dump(self.data, file, ensure_ascii=False, indent=4)
 
     def get_posts_all(self) -> list:
         with open(self.path, 'r', encoding='utf-8') as file:

@@ -23,4 +23,4 @@ def search_page():
     else:
         found_posts = None
 
-    return render_template("search.html", found_posts=found_posts, comments=comments_obj, url_css=url_css, url_scripts=url_scripts)
+    return render_template("search.html", found_posts=found_posts, comments=comments_obj, url_css=url_css, url_scripts=url_scripts, query=s)
