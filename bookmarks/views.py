@@ -14,7 +14,9 @@ def bookmarks_page():
     url_css = url_for("static", filename="css/styles.min.css")
     url_scripts = url_for("static", filename="scripts/scripts.js")
 
-    bookmarks = bookmarks_obj.get_posts_all()
+    bookmarks_ids = bookmarks_obj.get_ids_all()
+
+    bookmarks = posts_obj.get_posts_by_pks(bookmarks_ids)
     return render_template("bookmarks.html", url_css=url_css, url_scripts=url_scripts, bookmarks=bookmarks,
                            comments=comments_obj)
 
@@ -35,7 +37,7 @@ def bookmarks_add(post_id: int):
 
     logging.info(f"{Fore.MAGENTA}Adding post ID:{post_id} into bookmarks DB{Fore.RESET}")
 
-    bookmarks_obj.add_post_into_db(posts_obj, post_id)
+    bookmarks_obj.add_post_into_db(post_id)
     bookmarks_obj.upload_into_json_file()
 
     logging.info(f"{Fore.MAGENTA}Post ID:{post_id} added into bookmarks DB{Fore.RESET}")

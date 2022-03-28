@@ -55,11 +55,23 @@ class PostsHandler:
 
     def get_post_by_pk(self, pk: int) -> dict:
 
-        result_posts = {}
+        result_posts = []
 
         for post in self.data:
             if post["pk"] == pk:
                 result_posts = post
+        return result_posts
+
+    def get_posts_by_pks(self, pk: list) -> list:
+
+        result_posts = []
+        bookmraks_pks = []
+        for bookmark in pk:
+            bookmraks_pks.append(bookmark["pk"])
+
+        for post in self.data:
+            if post["pk"] in bookmraks_pks:
+                result_posts.append(post)
         return result_posts
 
     def get_max_post_id(self) -> int:

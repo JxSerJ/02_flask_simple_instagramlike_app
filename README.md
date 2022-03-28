@@ -4,17 +4,19 @@ ___
  
 - [x] Data loading
 - [x] Posts-processing class
-- [ ] Comments-processing class
+- [x] Comments-processing class
 - [x] Bookmarks-processing class
 - [ ] Tags-processing class ?
 - [x] Index page
 - [x] User feed
-- [ ] Single Post page with comments add functionality
+- [x] Single Post page with comments add functionality
 - [x] Search module and page
 - [x] Bookmarks module and page
 - [ ] Tag module and page ?
-- [ ] New post loader module ?
+- [x] New post loader module
+- [X] A bit of logging
 - [ ] Testing APIs
+- [ ] Sidebar
 
 ### Course features used:
 
@@ -28,6 +30,7 @@ ___
 - [x] Jinja2 templates
 - [x] CSS (superficially)
 - [x] JS (superficially)
+- [X] Logging
 - [ ] Error handling
 - [ ] APIs
 

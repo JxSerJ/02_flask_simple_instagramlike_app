@@ -21,7 +21,7 @@ application.register_blueprint(post_loader)
 @application.route("/", methods=['GET'])
 def main_page():
     posts = posts_obj.data
-    bookmarks_count = len(bookmarks_obj.get_posts_all())
+    bookmarks_count = len(bookmarks_obj.get_ids_all())
     return render_template("index.html", posts_list=posts, comments=comments_obj, bookmarks_count=bookmarks_count)
 
 
