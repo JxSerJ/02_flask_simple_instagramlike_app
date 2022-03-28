@@ -65,6 +65,25 @@
           </div>
         </div>
       </div>
+
+      <div class="loader">
+        <h2>Добавить комментарий</h2>
+        <form action="/post/add_comment" method="POST">
+          <p><br>Ваше имя:</p>
+          <div>
+            <input name="post_id" type="text" style="display: none" value="{{ post.pk }}">
+            <input name="user_name" type="text" class="loader__input">
+          </div>
+          <p><br>Текст комментария:</p>
+          <div>
+            <textarea name="content" rows="6" class="loader__input"></textarea>
+          </div>
+          <div>
+            <br><input type="submit" value="Добавить комментарий" class="button">
+          </div>
+        </form>
+      </div>
+
     </section>
   </main>
   <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
