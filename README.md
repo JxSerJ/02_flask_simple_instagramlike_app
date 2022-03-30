@@ -6,13 +6,12 @@ ___
 - [x] Posts-processing class
 - [x] Comments-processing class
 - [x] Bookmarks-processing class
-- [ ] Tags-processing class ?
 - [x] Index page
 - [x] User feed
 - [x] Single Post page with comments add functionality
 - [x] Search module and page
 - [x] Bookmarks module and page
-- [ ] Tag module and page ?
+- [x] Tags processing and tags page
 - [x] New post loader module
 - [X] A bit of logging
 - [ ] Testing APIs

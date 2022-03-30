@@ -8,7 +8,7 @@ function showHide(shID) {
 		else {
 			document.getElementById(shID+'-show').style.display = 'inline';
 			document.getElementById(shID).style.display = 'none';
-            document.getElementById(shID+'-less').style.display = 'inline'
+            document.getElementById(shID+'-less').style.display = 'block';
 		}
 	}
 }

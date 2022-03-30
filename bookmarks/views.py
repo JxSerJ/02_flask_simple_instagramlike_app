@@ -15,10 +15,11 @@ def bookmarks_page():
     url_scripts = url_for("static", filename="scripts/scripts.js")
 
     bookmarks_ids = bookmarks_obj.get_ids_all()
+    hashtags = posts_obj.hashtags
 
-    bookmarks = posts_obj.get_posts_by_pks(bookmarks_ids)
+    bookmarks = posts_obj.get_posts_by_bookmarks_db(bookmarks_ids)
     return render_template("bookmarks.html", url_css=url_css, url_scripts=url_scripts, bookmarks=bookmarks,
-                           comments=comments_obj)
+                           comments=comments_obj, hashtags=hashtags)
 
 
 @bookmarks_module.route("/bookmarks/add/<int:post_id>", methods=['GET'])

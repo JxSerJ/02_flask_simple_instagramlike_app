@@ -130,5 +130,11 @@
         "commenter_name": "Sergey",
         "comment": "Второй тестовый комментарий",
         "pk": 22
+    },
+    {
+        "post_id": 12,
+        "commenter_name": "Sergey",
+        "comment": "Новый тестовый комментарий",
+        "pk": 23
     }
 ]

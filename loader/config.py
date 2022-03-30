@@ -1,1 +1,1 @@
-ALLOWED_EXTENSIONS = {"jpg", "jpeg", "gif"}
+ALLOWED_EXTENSIONS = {"jpg", "jpeg", "gif", "png"}

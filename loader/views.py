@@ -4,7 +4,6 @@ from colorama import Fore
 from flask import Blueprint, render_template, url_for, request, redirect
 from datetime import datetime
 
-from loader.functions import add_post_into_json
 from database.database import posts_obj, comments_obj
 from config import UPLOAD_FOLDER
 from loader.config import ALLOWED_EXTENSIONS
@@ -45,9 +44,10 @@ def upload_post():
                 data_to_add = {"poster_name": user_name,
                                "poster_avatar": url_for("static", filename="img/ava_default.jpg"),
                                "pic": f"/{url_pic}", "content": post_content, "views_count": 1, "likes_count": 0}
-                post_uploaded = posts_obj.add_post(data_to_add)
+                post_uploaded, post_id = posts_obj.add_post(data_to_add)
                 posts_obj.upload_into_json_file()
-                return render_template("post.html", url_css=url_css, post=post_uploaded)
+                hashtags = posts_obj.get_hashtags_by_pk(post_id)
+                return render_template("post.html", url_css=url_css, post=post_uploaded, hashtags=hashtags)
         else:
             error = f"Тип файла недопустим. Допустимые типы файлов: {', '.join(ALLOWED_EXTENSIONS)}"
     else:

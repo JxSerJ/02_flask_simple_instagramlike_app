@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, url_for
 
-from database.database import posts_obj, comments_obj
+from database.database import posts_obj, comments_obj, bookmarks_obj
 
 
 search_module = Blueprint("search_page", __name__, template_folder="search_templates", static_folder="../static")
@@ -13,7 +13,8 @@ def search_page():
     url_scripts = url_for("static", filename="scripts/scripts.js")
     error = None
 
-    # posts_list = posts_obj.get_posts_all()
+    hashtags = posts_obj.hashtags
+
     s = request.args.get("s")
 
     if s == "":
@@ -23,4 +24,5 @@ def search_page():
     else:
         found_posts = None
 
-    return render_template("search.html", found_posts=found_posts, comments=comments_obj, url_css=url_css, url_scripts=url_scripts, query=s)
+    return render_template("search.html", found_posts=found_posts, comments=comments_obj, url_css=url_css,
+                           url_scripts=url_scripts, query=s, hashtags=hashtags)
