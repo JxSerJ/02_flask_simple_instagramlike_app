@@ -3,6 +3,7 @@ from flask import Flask, render_template, send_from_directory
 from search.views import search_module
 from bookmarks.views import bookmarks_module
 from loader.views import post_loader
+from api.views import api_module
 
 from database.database import posts_obj, comments_obj, bookmarks_obj
 
@@ -11,11 +12,14 @@ import logging
 
 application = Flask(__name__)
 
+application.config['JSON_AS_ASCII'] = False
+
 logging.basicConfig(level=logging.INFO)
 
 application.register_blueprint(search_module)
 application.register_blueprint(bookmarks_module)
 application.register_blueprint(post_loader)
+application.register_blueprint(api_module, follow_redirects=True)
 
 
 @application.route("/", methods=['GET'])
@@ -44,10 +48,6 @@ def user_page(user_name):
 @application.route("/data/img/<path:path>", methods=['GET'])
 def dynamic_dir(path):
     return send_from_directory("data/img", path)
-
-# api1
-
-# api2
 
 
 @application.route("/tag/<tag_name>", methods=['GET'])

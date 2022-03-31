@@ -12,6 +12,12 @@
 </head>
 
 <body>
+<div class="sidepanel">
+  <a href="/">Main</a>
+  <a href="/search">Search</a>
+  <a href="/post">New post</a>
+  <a href="/bookmarks">Bookmarks</a>
+</div>
 <header class="container header">
   <div class="header__wrapper">
     <a href="/" class="header__btn-back">
@@ -47,7 +53,7 @@
       <a href="/posts/{{ bookmark.pk }}" class="item__post-link">
         <img src="{{ bookmark.pic }}" alt="" width="348" class="item__post-img">
       </a>
-      {% for hashtag in hashtags[post.pk] %}
+      {% for hashtag in hashtags[bookmark.pk] %}
       <span class="item__descr"><a href="/tag/{{ hashtag }}" class="item__tag">#{{ hashtag }}</a></span>
       {% endfor %}
       <div id="comm_content-{{bookmark.pk}}-less" style="display:block">

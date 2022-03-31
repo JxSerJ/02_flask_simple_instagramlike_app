@@ -13,9 +13,9 @@ ___
 - [x] Bookmarks module and page
 - [x] Tags processing and tags page
 - [x] New post loader module
-- [X] A bit of logging
-- [ ] Testing APIs
-- [ ] Sidebar
+- [X] A bit of logging (in console, no file used)
+- [x] APIs and tests of APIs
+- [x] Sidebar (super simple version)
 
 ### Course features used:
 
@@ -30,9 +30,9 @@ ___
 - [x] CSS (superficially)
 - [x] JS (superficially)
 - [X] Logging
-- [ ] Error handling
-- [ ] APIs
+- [x] Error handling (in loader only)
+- [x] APIs
 
 ---
 
-- [ ] FULLY_COMPLETED
+- [x] FULLY_COMPLETED

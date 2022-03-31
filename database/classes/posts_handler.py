@@ -128,4 +128,3 @@ class PostsHandler:
             if post["pk"] in pks:
                 result_posts.append(post)
         return result_posts
-
