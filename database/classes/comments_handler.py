@@ -1,11 +1,11 @@
-import json
+from database.classes.file_handler import JsonFileHandler
 
 
-class CommentsHandler:
+class CommentsHandler(JsonFileHandler):
 
     def __init__(self, path: str):
-        self.path = path
-        self.data = self.get_comments_all()
+        super().__init__(path)
+        self.data = self.load_json_file()
         self.max_comment_id = self.get_max_comment_id()
         print(f"CommentsHandler initialized with data from '{path}'\n"
               f"Comments loaded: {len(self.data)}\n"
@@ -15,17 +15,7 @@ class CommentsHandler:
         return f"Comments loaded: {len(self.data)}"
 
     def get_comments_all(self) -> list:
-
-        with open(self.path, 'r', encoding='utf-8') as file:
-            self.data = json.load(file)
         return self.data
-
-    def upload_into_json_file(self) -> None:
-        """
-        JSON Data uploader
-        """
-        with open(self.path, 'w', encoding='utf-8') as file:
-            json.dump(self.data, file, ensure_ascii=False, indent=4)
 
     def get_comments_by_post_id(self, post_id: int) -> list:
 
@@ -49,4 +39,3 @@ class CommentsHandler:
 
         data["pk"] = self.max_comment_id + 1
         self.data.append(data)
-
