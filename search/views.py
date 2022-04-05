@@ -11,7 +11,6 @@ def search_page():
 
     url_css = url_for("static", filename="css/styles.min.css")
     url_scripts = url_for("static", filename="scripts/scripts.js")
-    error = None
 
     hashtags = posts_obj.hashtags
 

@@ -21,8 +21,6 @@ def loader_page():
 def upload_post():
     url_css = url_for("static", filename="css/styles.min.css")
 
-    error = None
-
     picture = request.files.get("picture")
     user_name = request.form.get("user_name")
     post_content = request.form.get("content")
@@ -58,7 +56,6 @@ def upload_post():
 
 @post_loader.route("/post/add_comment", methods=["POST"])
 def upload_comment():
-    url_css = url_for("static", filename="css/styles.min.css")
 
     user_name = request.form.get("user_name")
     comment_content = request.form.get("content")
@@ -73,6 +70,7 @@ def upload_comment():
         return redirect(f"/posts/{post_id}", code=302)
 
     else:
+
         logging.info(f"{Fore.MAGENTA}Empty comment. Skipping uploading. Reloading page.{Fore.RESET}")
         return redirect(f"/posts/{post_id}", code=302)
 
