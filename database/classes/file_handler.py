@@ -2,6 +2,7 @@ import json
 
 
 class JsonFileHandler:
+    """Обработчик файлов БД"""
 
     def __init__(self, path: str):
         self.path = path

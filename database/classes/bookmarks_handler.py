@@ -3,6 +3,7 @@ from database.classes.file_handler import JsonFileHandler
 
 
 class BookmarksHandler(JsonFileHandler):
+    """Обработчик закладок из БД"""
 
     def __init__(self, path: str):
         super().__init__(path)

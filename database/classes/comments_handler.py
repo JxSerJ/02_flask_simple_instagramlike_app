@@ -2,6 +2,7 @@ from database.classes.file_handler import JsonFileHandler
 
 
 class CommentsHandler(JsonFileHandler):
+    """Обработчик комментариев из БД"""
 
     def __init__(self, path: str):
         super().__init__(path)

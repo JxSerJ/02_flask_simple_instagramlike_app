@@ -4,7 +4,7 @@ from colorama import Fore
 from flask import Blueprint, render_template, url_for, request, redirect
 from datetime import datetime
 
-from database.database import posts_obj, comments_obj
+from database.database import posts_obj, comments_obj, bookmarks_obj
 from config import UPLOAD_FOLDER
 from loader.config import ALLOWED_EXTENSIONS
 
@@ -73,4 +73,3 @@ def upload_comment():
 
         logging.info(f"{Fore.MAGENTA}Empty comment. Skipping uploading. Reloading page.{Fore.RESET}")
         return redirect(f"/posts/{post_id}", code=302)
-

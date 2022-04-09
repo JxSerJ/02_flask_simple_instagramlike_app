@@ -2,6 +2,7 @@ from database.classes.file_handler import JsonFileHandler
 
 
 class PostsHandler(JsonFileHandler):
+    """Обработчик постов из БД"""
 
     def __init__(self, path: str):
         super().__init__(path)

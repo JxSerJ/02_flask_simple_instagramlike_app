@@ -1,14 +1,13 @@
 from flask import Flask, render_template, send_from_directory
 
+from database.database import posts_obj, comments_obj, bookmarks_obj
+
 from search.views import search_module
 from bookmarks.views import bookmarks_module
 from loader.views import post_loader
 from api.views import api_module
 
-from database.database import posts_obj, comments_obj, bookmarks_obj
-
 import logging
-
 
 application = Flask(__name__)
 
@@ -27,7 +26,8 @@ def main_page():
     posts = posts_obj.data
     hashtags = posts_obj.hashtags
     bookmarks_count = len(bookmarks_obj.get_ids_all())
-    return render_template("index.html", posts_list=posts, comments=comments_obj, bookmarks_count=bookmarks_count, hashtags=hashtags)
+    return render_template("index.html", posts_list=posts, comments=comments_obj, bookmarks_count=bookmarks_count,
+                           hashtags=hashtags)
 
 
 @application.route("/posts/<int:post_id>", methods=['GET'])

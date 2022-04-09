@@ -1,5 +1,11 @@
 import pytest
 
+import os
+import sys
+
+path = os.path.abspath('.')
+sys.path.insert(1, path)
+
 from app import application
 
 params = [
