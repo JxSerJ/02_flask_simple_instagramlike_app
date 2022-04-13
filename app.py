@@ -1,7 +1,5 @@
 from flask import Flask, render_template, send_from_directory
 
-from database.database import posts_obj, comments_obj, bookmarks_obj
-
 from search.views import search_module
 from bookmarks.views import bookmarks_module
 from loader.views import post_loader
@@ -11,7 +9,8 @@ import logging
 
 application = Flask(__name__)
 
-application.config['JSON_AS_ASCII'] = False
+application.config.from_pyfile("config.py")
+application.config.from_pyfile("database/database.py")
 
 logging.basicConfig(level=logging.INFO)
 
@@ -23,6 +22,11 @@ application.register_blueprint(api_module, follow_redirects=True)
 
 @application.route("/", methods=['GET'])
 def main_page():
+    """Index page view"""
+    posts_obj = application.config.get("POSTS_OBJ")
+    comments_obj = application.config.get('COMMENTS_OBJ')
+    bookmarks_obj = application.config.get('BOOKMARKS_OBJ')
+
     posts = posts_obj.data
     hashtags = posts_obj.hashtags
     bookmarks_count = len(bookmarks_obj.get_ids_all())
@@ -32,6 +36,9 @@ def main_page():
 
 @application.route("/posts/<int:post_id>", methods=['GET'])
 def post_page(post_id: int):
+    posts_obj = application.config.get("POSTS_OBJ")
+    comments_obj = application.config.get('COMMENTS_OBJ')
+
     post = posts_obj.get_post_by_pk(post_id)
     hashtags = posts_obj.get_hashtags_by_pk(post_id)
     comments = comments_obj.get_comments_by_post_id(post_id)
@@ -40,6 +47,9 @@ def post_page(post_id: int):
 
 @application.route("/users/<user_name>", methods=['GET'])
 def user_page(user_name):
+    posts_obj = application.config.get("POSTS_OBJ")
+    comments_obj = application.config.get('COMMENTS_OBJ')
+
     posts = posts_obj.get_posts_by_user(user_name)
     hashtags = posts_obj.hashtags
     return render_template("user-feed.html", user_name=user_name, posts=posts, comments=comments_obj, hashtags=hashtags)
@@ -52,6 +62,9 @@ def dynamic_dir(path):
 
 @application.route("/tag/<tag_name>", methods=['GET'])
 def tag_page(tag_name):
+    posts_obj = application.config.get("POSTS_OBJ")
+    comments_obj = application.config.get('COMMENTS_OBJ')
+
     posts_ids = posts_obj.get_pks_by_hashtags(tag_name)
     posts_for_view = posts_obj.get_posts_by_pks(posts_ids)
     hashtags = posts_obj.hashtags
@@ -59,4 +72,4 @@ def tag_page(tag_name):
 
 
 if __name__ == "__main__":
-    application.run(debug=False)
+    application.run()

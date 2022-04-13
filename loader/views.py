@@ -1,12 +1,8 @@
 import logging
 from colorama import Fore
 
-from flask import Blueprint, render_template, url_for, request, redirect
+from flask import Blueprint, render_template, url_for, request, redirect, current_app
 from datetime import datetime
-
-from database.database import posts_obj, comments_obj, bookmarks_obj
-from config import UPLOAD_FOLDER
-from loader.config import ALLOWED_EXTENSIONS
 
 post_loader = Blueprint("post_loader", __name__, static_folder="../static", template_folder="loader_templates")
 
@@ -19,6 +15,13 @@ def loader_page():
 
 @post_loader.route("/post", methods=["POST"])
 def upload_post():
+    """Upload new post view"""
+
+    with current_app.app_context():
+        ALLOWED_EXTENSIONS = current_app.config.get('ALLOWED_EXTENSIONS')
+        UPLOAD_FOLDER = current_app.config.get('UPLOAD_FOLDER')
+        posts_obj = current_app.config.get('POSTS_OBJ')
+
     url_css = url_for("static", filename="css/styles.min.css")
 
     picture = request.files.get("picture")
@@ -56,6 +59,10 @@ def upload_post():
 
 @post_loader.route("/post/add_comment", methods=["POST"])
 def upload_comment():
+    """Upload new comment to post view"""
+
+    with current_app.app_context():
+        comments_obj = current_app.config.get('COMMENTS_OBJ')
 
     user_name = request.form.get("user_name")
     comment_content = request.form.get("content")

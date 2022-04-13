@@ -1,9 +1,7 @@
-from flask import Blueprint, render_template, request, url_for, redirect
+from flask import Blueprint, render_template, request, url_for, redirect, current_app
 import logging
 
 from colorama import Fore
-
-from database.database import posts_obj, comments_obj, bookmarks_obj
 
 bookmarks_module = Blueprint("bookmarks_module", __name__, template_folder="bookmarks_templates",
                              static_folder="../static")
@@ -11,6 +9,12 @@ bookmarks_module = Blueprint("bookmarks_module", __name__, template_folder="book
 
 @bookmarks_module.route("/bookmarks", methods=["GET"])
 def bookmarks_page():
+
+    with current_app.app_context():
+        posts_obj = current_app.config.get('POSTS_OBJ')
+        comments_obj = current_app.config.get('COMMENTS_OBJ')
+        bookmarks_obj = current_app.config.get('BOOKMARKS_OBJ')
+
     url_css = url_for("static", filename="css/styles.min.css")
     url_scripts = url_for("static", filename="scripts/scripts.js")
 
@@ -24,6 +28,9 @@ def bookmarks_page():
 
 @bookmarks_module.route("/bookmarks/add/<int:post_id>", methods=['GET'])
 def bookmarks_add(post_id: int):
+
+    with current_app.app_context():
+        bookmarks_obj = current_app.config.get('BOOKMARKS_OBJ')
 
     redirect_target = request.args.get("rt")
 
@@ -48,6 +55,9 @@ def bookmarks_add(post_id: int):
 
 @bookmarks_module.route("/bookmarks/remove/<int:post_id>", methods=['GET'])
 def bookmarks_remove(post_id):
+
+    with current_app.app_context():
+        bookmarks_obj = current_app.config.get('BOOKMARKS_OBJ')
 
     redirect_target = request.args.get("rt")
 
