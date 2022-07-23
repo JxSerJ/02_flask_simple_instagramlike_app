@@ -25,7 +25,6 @@ class BookmarksHandler(JsonFileHandler):
     def get_index_by_pk(self, pk: int) -> int:
         """Return index of bookmark by id"""
 
-        self.reload_data()
         for i, dictionary in enumerate(self.data):
             if dictionary["pk"] == pk:
                 return i
