@@ -2,7 +2,7 @@ from database.classes.file_handler import JsonFileHandler
 
 
 class PostsHandler(JsonFileHandler):
-    """Обработчик постов из БД"""
+    """Posts Handler. Loads, writes and process posts from and in DB"""
 
     def __init__(self, path: str):
         super().__init__(path)
@@ -18,11 +18,20 @@ class PostsHandler(JsonFileHandler):
     def __repr__(self):
         return f"Posts loaded: {len(self.data)}"
 
+    def reload_data(self):
+        """To ensure stable data flow in more than one thread"""
+        self.data = self.load_json_file()
+        self.max_post_id = self.get_max_post_id()
+        self.hashtags = self.get_hashtags()
+
     def get_posts_all(self) -> list:
+
+        self.reload_data()
         return self.data
 
     def get_posts_by_user(self, user_name) -> list:
 
+        self.reload_data()
         result_posts = []
 
         for post in self.data:
@@ -32,6 +41,7 @@ class PostsHandler(JsonFileHandler):
 
     def search_for_posts(self, query: str) -> list:
 
+        self.reload_data()
         result_posts = []
 
         for post in self.data:
@@ -41,6 +51,7 @@ class PostsHandler(JsonFileHandler):
 
     def get_post_by_pk(self, pk: int) -> dict:
 
+        self.reload_data()
         result_posts = []
 
         for post in self.data:
@@ -50,6 +61,7 @@ class PostsHandler(JsonFileHandler):
 
     def get_posts_by_bookmarks_db(self, bookmarks_db: list[dict]) -> list:
 
+        self.reload_data()
         result_posts = []
         bookmarks_pks = []
         for bookmark in bookmarks_db:
@@ -61,6 +73,7 @@ class PostsHandler(JsonFileHandler):
         return result_posts
 
     def get_max_post_id(self) -> int:
+
         max_post_id = 0
         for entry in self.data:
             if entry["pk"] > max_post_id:
@@ -71,6 +84,7 @@ class PostsHandler(JsonFileHandler):
 
     def add_post(self, data: dict) -> tuple[dict, int]:
 
+        self.reload_data()
         data["pk"] = self.max_post_id + 1
         self.data.append(data)
         self.hashtags = self.get_hashtags()
@@ -93,12 +107,14 @@ class PostsHandler(JsonFileHandler):
 
     def get_hashtags_by_pk(self, pk: int) -> list:
 
+        self.reload_data()
         for entry in self.hashtags:
             if entry == pk:
                 return self.hashtags[pk]
 
     def get_pks_by_hashtags(self, hashtag) -> list:
 
+        self.reload_data()
         pks = []
         for key, value in self.hashtags.items():
             if hashtag in value:
@@ -107,6 +123,7 @@ class PostsHandler(JsonFileHandler):
 
     def get_posts_by_pks(self, pks: list):
 
+        self.reload_data()
         result_posts = []
 
         for post in self.data:
